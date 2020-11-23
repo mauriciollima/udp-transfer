@@ -3,8 +3,8 @@ package main;
 public class DataInfo {
 	
 	private int sequence;
-	private String message;
 	private byte[] data;
+	long CRC;
 
 	public DataInfo(byte[] data, int sequence) {
 		this.sequence = sequence;
@@ -19,14 +19,6 @@ public class DataInfo {
 		this.sequence = sequence;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public byte[] getData() {
 		return data;
 	}
@@ -34,5 +26,14 @@ public class DataInfo {
 	public void setData(byte[] data) {
 		this.data = data;
 	}
+
+	public long getCRC() {
+		return CRC;
+	}
+
+	public void setCRC(long cRC) {
+		CRC = cRC;
+	}
+	
 
 }
