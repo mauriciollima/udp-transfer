@@ -23,15 +23,16 @@ public class UDPServer extends Thread {
 	public void run() {
 		running = true;
 		while (running) {
+			sleep(1000);
 			DatagramPacket packet = new DatagramPacket(buf, buf.length);
-			try {
-				socket.receive(packet);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			receive(packet);
+			
 			InetAddress address = packet.getAddress();
 			int port = packet.getPort();
 			packet = new DatagramPacket(buf, buf.length, address, port);
+			
+			
+			
 			String received = new String(packet.getData(), 0, packet.getLength());
 			System.out.println(received);
 			if (received.equals("end")) {
@@ -45,5 +46,23 @@ public class UDPServer extends Thread {
 			}
 		}
 		socket.close();
+	}
+	
+	public void sleep(int s) {
+//		System.out.println("sleeping "+s);
+		try {
+			Thread.sleep(s);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void receive(DatagramPacket packet) {
+//		System.out.println("receive " +packet);
+		try {
+			socket.receive(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class UDPClient {
 	private DatagramSocket socket;
 	private InetAddress address;
 	private byte[] buf;
-	static List<Message> messages = new ArrayList<Message>();
+	static List<DataInfo> messages = new ArrayList<DataInfo>();
 
 	public UDPClient() {
 		try {
@@ -34,14 +33,25 @@ public class UDPClient {
 		return Boolean.TRUE;
 	}
 
-	public String sendEcho(String msg) {
-		buf = msg.getBytes();
+	public String send(DataInfo message) {
+		
+		//pegando os dados(byte) da mensagem
+		buf = message.getData();
+		
+		//construção do pacote
 		DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4445);
+		
+		
 		String received = "";
 		try {
+			
+			//envia para o server
 			socket.send(packet);
 			packet = new DatagramPacket(buf, buf.length);
+			
+			//recebe response do server
 			socket.receive(packet);
+			
 			received = new String(packet.getData(), 0, packet.getLength());
 			return received;
 		} catch (IOException e) {

@@ -17,7 +17,7 @@ public class ServerApplication {
 		show("1 - Server");
 		String app = input();
 		if (app.contentEquals("1")) {
-			show("Server");
+			show("server start");
 			UDPServer server = new UDPServer();
 			server.run();
 		}
