@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UDPClient {
 	private DatagramSocket socket;
 	private InetAddress address;
 	private byte[] buf;
+	static List<Message> messages = new ArrayList<Message>();
 
 	public UDPClient() {
 		try {
@@ -17,6 +21,17 @@ public class UDPClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Boolean connect() {
+		try {
+			DatagramSocket socket = new DatagramSocket(4999);
+			InetAddress ipAddress = InetAddress.getByName("localhost");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Boolean.TRUE;
 	}
 
 	public String sendEcho(String msg) {
